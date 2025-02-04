@@ -9,9 +9,12 @@ export const ThemeToggle = () => {
     <button
       onClick={toggleTheme}
       className={`
-        px-4 py-2 rounded-lg 
-        ${isDarkMode ? 'text-dark-text bg-dark-primary hover:bg-dark-secondary' : 'text-light-text bg-light-primary hover:bg-light-secondary'} 
-        transition-colors
+        px-4 py-2 rounded-lg transition-colors font-medium
+        ${
+          isDarkMode
+            ? 'bg-neutral-800 text-textColor-50 hover:bg-neutral-700'
+            : 'bg-neutral-100 text-textColor-200 hover:bg-neutral-200'
+        }
       `}
     >
       Switch to {isDarkMode ? 'light' : 'dark'} theme
