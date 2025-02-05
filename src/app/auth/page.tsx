@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/button';
 import Input from '@/components/input';
+import { Typography } from '@/components/typography';
 
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
@@ -11,9 +12,9 @@ export default function AuthPage() {
     <div className="flex items-center justify-center min-h-screen bg-brand-lightGray dark:bg-neutral-900">
       <div className="w-full max-w-sm p-6 bg-brand-white dark:bg-neutral-800 rounded-2xl shadow-2xl mt-6">
         <div className="text-center mb-4">
-          <h2 className="text-xl font-semibold text-textColor-200 dark:text-textColor-50">
+          <Typography variant="standard" size="h1">
             {activeTab === 'login' ? 'Sign in' : 'Sign up'}
-          </h2>
+          </Typography>
         </div>
 
         <div className="mb-6">
