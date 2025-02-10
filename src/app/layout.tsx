@@ -1,6 +1,6 @@
 import './globals.css';
-import { ThemeProvider } from '@/context/themeContext';
 import { ThemeToggle } from '@/components/themeToggle';
+import { Providers } from './providers';
 
 export default function RootLayout({
   children,
@@ -10,12 +10,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="transition-colors duration-300">
       <body>
-        <ThemeProvider>
+        <Providers>
           <div className="fixed top-4 right-4 z-50">
             <ThemeToggle />
           </div>
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

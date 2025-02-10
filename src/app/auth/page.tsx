@@ -1,12 +1,47 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+import { useAuth } from '@/context/authContext';
+
 import Button from '@/components/button';
 import Input from '@/components/input';
 import { Typography } from '@/components/typography';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
+import { auth } from '@/../firebase-config';
 
 export default function AuthPage() {
+  const { user } = useAuth();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log(user);
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      if (activeTab === 'login') {
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Authentication failed');
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-brand-lightGray dark:bg-neutral-900">
@@ -36,16 +71,22 @@ export default function AuthPage() {
           </div>
         </div>
 
-        <form className="space-y-4">
+        {error && (
+          <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+        )}
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <Input
             id="email"
             type="email"
+            onChange={(e) => setEmail(e.target.value)}
             required
             className="dark:inputVariants({ theme: 'dark' })"
           />
           <Input
             id="password"
             type="password"
+            onChange={(e) => setPassword(e.target.value)}
             required
             className="dark:inputVariants({ theme: 'dark' })"
           />
