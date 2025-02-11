@@ -10,6 +10,7 @@ type InputProps = {
   type: 'text' | 'email' | 'password';
   required?: boolean;
   className?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const inputVariants = cva(
@@ -28,8 +29,28 @@ const inputVariants = cva(
   }
 );
 
-export default function Input({ id, type, required, className }: InputProps) {
+export default function Input({
+  id,
+  type,
+  required,
+  className,
+  onChange,
+}: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (type === 'email') {
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value);
+      if (!isValid) {
+        setError('Invalid email address');
+        return;
+      }
+      setError(null);
+    }
+
+    onChange(e);
+  };
 
   return (
     <div className="relative">
@@ -47,8 +68,10 @@ export default function Input({ id, type, required, className }: InputProps) {
           className={clsx(
             inputVariants({ theme: 'light' }),
             'dark:inputVariants({ theme: "dark" })',
-            className
+            className,
+            error && 'border-red-500 focus:border-red-500 focus:ring-red-500'
           )}
+          onChange={handleChange}
         />
         {type === 'email' && (
           <MailIcon className="absolute right-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-500" />
@@ -67,6 +90,7 @@ export default function Input({ id, type, required, className }: InputProps) {
           </button>
         )}
       </div>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 }
