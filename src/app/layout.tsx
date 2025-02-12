@@ -1,6 +1,7 @@
 import './globals.css';
-import { ThemeToggle } from '@/components/themeToggle';
 import { Providers } from './providers';
+
+import { ThemeToggle } from '@/components/';
 
 export default function RootLayout({
   children,
