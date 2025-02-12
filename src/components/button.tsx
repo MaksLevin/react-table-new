@@ -33,7 +33,7 @@ interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
-const Button: FC<ButtonProps> = ({
+export const Button: FC<ButtonProps> = ({
   variant,
   size,
   className,
@@ -49,5 +49,3 @@ const Button: FC<ButtonProps> = ({
     </button>
   );
 };
-
-export default Button;

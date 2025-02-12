@@ -29,13 +29,7 @@ const inputVariants = cva(
   }
 );
 
-export default function Input({
-  id,
-  type,
-  required,
-  className,
-  onChange,
-}: InputProps) {
+export function Input({ id, type, required, className, onChange }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
