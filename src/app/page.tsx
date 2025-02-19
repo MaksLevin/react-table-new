@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 
 import { useAuth } from '@/context';
 
+import TableSettingsForm from '@/modules/form/tableSettingsForm';
+
 export default function Page() {
   const { user } = useAuth();
   const router = useRouter();
@@ -15,5 +17,5 @@ export default function Page() {
     }
   }, [user, router]);
 
-  return <h1>Main page</h1>;
+  return <TableSettingsForm></TableSettingsForm>;
 }

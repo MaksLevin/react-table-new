@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { EyeIcon, EyeOffIcon, MailIcon } from 'lucide-react';
 import { cva } from 'class-variance-authority';
 import clsx from 'clsx';
@@ -8,9 +8,11 @@ import clsx from 'clsx';
 type InputProps = {
   id: string;
   type: 'text' | 'email' | 'password';
+  name: string;
   required?: boolean;
   className?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const inputVariants = cva(
@@ -29,7 +31,15 @@ const inputVariants = cva(
   }
 );
 
-export function Input({ id, type, required, className, onChange }: InputProps) {
+export function Input({
+  id,
+  type,
+  name,
+  required,
+  className,
+  value,
+  onChange,
+}: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,7 +53,9 @@ export function Input({ id, type, required, className, onChange }: InputProps) {
       setError(null);
     }
 
-    onChange(e);
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   return (
@@ -58,7 +70,9 @@ export function Input({ id, type, required, className, onChange }: InputProps) {
         <input
           id={id}
           type={type === 'password' && showPassword ? 'text' : type}
+          name={name}
           required={required}
+          value={value}
           className={clsx(
             inputVariants({ theme: 'light' }),
             'dark:inputVariants({ theme: "dark" })',
