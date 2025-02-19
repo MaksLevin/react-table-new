@@ -67,6 +67,7 @@ export default function AuthForm() {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <Input
+            name="email"
             id="email"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -74,6 +75,7 @@ export default function AuthForm() {
             className="dark:inputVariants({ theme: 'dark' })"
           />
           <Input
+            name="password"
             id="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}

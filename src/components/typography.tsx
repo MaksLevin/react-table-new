@@ -25,7 +25,8 @@ const typographyVariants = cva('', {
   },
 });
 
-type TypographyProps = React.HTMLAttributes<HTMLParagraphElement> &
+type TypographyProps = React.LabelHTMLAttributes<HTMLLabelElement> &
+  React.HTMLAttributes<HTMLElement> &
   VariantProps<typeof typographyVariants> & {
     as?: React.ElementType;
   };
@@ -35,11 +36,13 @@ export const Typography = ({
   variant,
   size,
   as: Tag = 'p',
+  htmlFor,
   ...props
 }: TypographyProps) => {
   return (
     <Tag
       className={cn(typographyVariants({ variant, size }), className)}
+      {...(Tag === 'label' ? { htmlFor } : {})}
       {...props}
     />
   );
