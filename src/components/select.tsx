@@ -41,7 +41,7 @@ export const Select: FC<SelectProps> = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="w-full p-2 border rounded-lg dark:bg-neutral-700 dark:text-white"
+        className="w-full p-2 border rounded-lg dark:bg-neutral-700 dark:text-brand-white"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { EyeIcon, EyeOffIcon, MailIcon } from 'lucide-react';
 import { cva } from 'class-variance-authority';
 import clsx from 'clsx';
@@ -21,8 +21,8 @@ const inputVariants = cva(
     variants: {
       theme: {
         light:
-          'bg-white text-gray-900 border-gray-300 focus:ring-brand-red focus:border-brand-red',
-        dark: 'bg-gray-700 text-white border-gray-600 focus:ring-brand-red focus:border-brand-red',
+          'bg-brand-white text-neutral-900 border-neutral-300 focus:ring-brand-red focus:border-brand-red',
+        dark: 'bg-neutral-700 text-brand-white border-neutral-600 focus:ring-brand-red focus:border-brand-red',
       },
     },
     defaultVariants: {
@@ -62,7 +62,7 @@ export function Input({
     <div className="relative">
       <label
         htmlFor={id}
-        className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
       >
         {id.charAt(0).toUpperCase() + id.slice(1)}
       </label>
@@ -77,18 +77,19 @@ export function Input({
             inputVariants({ theme: 'light' }),
             'dark:inputVariants({ theme: "dark" })',
             className,
-            error && 'border-red-500 focus:border-red-500 focus:ring-red-500'
+            error &&
+              'border-error-normal focus:border-error-normal focus:ring-error-normal'
           )}
           onChange={handleChange}
         />
         {type === 'email' && (
-          <MailIcon className="absolute right-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-500" />
+          <MailIcon className="absolute right-3 top-3 h-5 w-5 text-neutral-400 dark:text-neutral-500" />
         )}
         {type === 'password' && (
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+            className="absolute right-3 top-3 text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-400"
           >
             {showPassword ? (
               <EyeOffIcon className="h-5 w-5" />
@@ -98,7 +99,7 @@ export function Input({
           </button>
         )}
       </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className="text-error-normal text-sm mt-1">{error}</p>}
     </div>
   );
 }

@@ -7,6 +7,7 @@ const typographyVariants = cva('', {
       standard: 'text-textColor-100 dark:text-textColor-50',
       secondary: 'text-textColor-200 dark:text-textColor-100',
       muted: 'text-neutral-500 dark:text-neutral-300',
+      error: 'text-error-normal',
     },
     size: {
       h1: 'text-4xl font-bold',
