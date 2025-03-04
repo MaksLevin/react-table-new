@@ -17,5 +17,5 @@ export default function Page() {
     }
   }, [user, router]);
 
-  return <TableSettingsForm></TableSettingsForm>;
+  return <TableSettingsForm />;
 }

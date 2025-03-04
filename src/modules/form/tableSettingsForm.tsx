@@ -1,44 +1,16 @@
 import { Formik, Form, Field } from 'formik';
-import { z } from 'zod';
+
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Typography } from '@/components/typography';
 import { Select } from '@/components/select';
 import { Checkbox } from '@/components/checkbox';
-
-const TableSchema = z.object({
-  tableName: z
-    .string()
-    .min(3, 'Table name must contain at least 3 characters')
-    .nonempty('Table name cannot be empty'),
-  columns: z.array(z.string()).min(1, 'Select at least one column'),
-  rowSize: z.union([
-    z.literal('small'),
-    z.literal('medium'),
-    z.literal('large'),
-  ]),
-  enableSorting: z.boolean(),
-  enableFiltering: z.boolean(),
-  compactMode: z.boolean(),
-  paginationType: z.union([
-    z.literal('pagination'),
-    z.literal('infiniteScroll'),
-  ]),
-});
-
-type TableSettings = z.infer<typeof TableSchema>;
-
-const initialValues: TableSettings = {
-  tableName: '',
-  columns: ['ID'],
-  rowSize: 'medium',
-  enableSorting: false,
-  enableFiltering: false,
-  compactMode: false,
-  paginationType: 'pagination',
-};
-
-const availableColumns = ['ID', 'Name', 'Age', 'Email', 'Status'];
+import {
+  TableSchema,
+  TableSettings,
+  initialValues,
+  availableColumns,
+} from '@/constants/tableSettingsForm';
 
 const validate = (values: TableSettings) => {
   const result = TableSchema.safeParse(values);
