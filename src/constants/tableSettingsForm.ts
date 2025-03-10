@@ -45,5 +45,4 @@ export interface DataItem {
 export const data: DataItem[] = [
   { id: 1, name: 'John Doe', age: 28, email: 'john@example.com' },
   { id: 2, name: 'Jane Smith', age: 34, email: 'jane@example.com' },
-  // Добавьте больше данных по необходимости
 ];

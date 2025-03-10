@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import TableHeader from './tableHeader';
-import TableRow from './tableRow';
-import Pagination from '@/components/pagination';
+import { TableHeader } from './tableHeader';
+import { TableRow } from './tableRow';
+
+import { Pagination } from '@/components/pagination';
+
 import { useTableSettings } from '@/context/tableSettingsContext';
+
 import {
   TableSettings,
   DataItem,
   data as initialData,
 } from '@/constants/tableSettingsForm';
 
-const Table: React.FC = () => {
+export const Table: React.FC = () => {
   const { settings } = useTableSettings();
   const [displayedData, setDisplayedData] = useState<DataItem[]>(initialData);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     let filteredData = initialData;
-
-    // Apply filtering logic here if needed
 
     setDisplayedData(filteredData);
   }, [initialData, settings.columns]);
@@ -79,5 +80,3 @@ const Table: React.FC = () => {
     </div>
   );
 };
-
-export default Table;

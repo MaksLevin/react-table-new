@@ -5,6 +5,7 @@ import { Input } from '@/components/input';
 import { Typography } from '@/components/typography';
 import { Select } from '@/components/select';
 import { Checkbox } from '@/components/checkbox';
+
 import {
   TableSchema,
   TableSettings,
@@ -28,7 +29,9 @@ const validate = (values: TableSettings) => {
   return {};
 };
 
-const TableSettingsForm: React.FC<TableSettingsFormProps> = ({ onSave }) => {
+export const TableSettingsForm: React.FC<TableSettingsFormProps> = ({
+  onSave,
+}) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -173,5 +176,3 @@ const TableSettingsForm: React.FC<TableSettingsFormProps> = ({ onSave }) => {
     </Formik>
   );
 };
-
-export default TableSettingsForm;

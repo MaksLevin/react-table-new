@@ -5,7 +5,10 @@ interface TableHeaderProps {
   onSort: (column: string) => void;
 }
 
-const TableHeader: React.FC<TableHeaderProps> = ({ columns, onSort }) => {
+export const TableHeader: React.FC<TableHeaderProps> = ({
+  columns,
+  onSort,
+}) => {
   return (
     <thead>
       <tr>
@@ -22,5 +25,3 @@ const TableHeader: React.FC<TableHeaderProps> = ({ columns, onSort }) => {
     </thead>
   );
 };
-
-export default TableHeader;

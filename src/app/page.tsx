@@ -1,18 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
-import TableSettingsForm from '@/modules/form/tableSettingsForm';
-import Table from '@/modules/table/table';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+import { Button } from '@/components/button';
+import { Table } from '@/modules/table/table';
+import { TableSettingsForm } from '@/modules/form/tableSettingsForm';
+
 import {
   TableSettingsProvider,
   useTableSettings,
 } from '@/context/tableSettingsContext';
-import { Button } from '@/components/button';
+import { AuthProvider, useAuth } from '@/context/authContext';
+
 import { TableSettings } from '@/constants/tableSettingsForm';
 
 const AppContent: React.FC = () => {
   const [showSettings, setShowSettings] = useState(true);
   const { setSettings } = useTableSettings();
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login');
+    }
+  }, [user, router]);
 
   const handleSaveSettings = (newSettings: TableSettings) => {
     setSettings(newSettings);
@@ -43,9 +56,11 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <TableSettingsProvider>
-      <AppContent />
-    </TableSettingsProvider>
+    <AuthProvider>
+      <TableSettingsProvider>
+        <AppContent />
+      </TableSettingsProvider>
+    </AuthProvider>
   );
 };
 

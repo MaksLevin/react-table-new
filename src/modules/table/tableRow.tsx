@@ -5,7 +5,7 @@ interface TableRowProps {
   columns: string[];
 }
 
-const TableRow: React.FC<TableRowProps> = ({ row, columns }) => {
+export const TableRow: React.FC<TableRowProps> = ({ row, columns }) => {
   return (
     <tr>
       {columns.map((column) => (
@@ -16,5 +16,3 @@ const TableRow: React.FC<TableRowProps> = ({ row, columns }) => {
     </tr>
   );
 };
-
-export default TableRow;
