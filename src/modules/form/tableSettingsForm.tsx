@@ -1,5 +1,5 @@
+import React from 'react';
 import { Formik, Form, Field } from 'formik';
-
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Typography } from '@/components/typography';
@@ -11,6 +11,10 @@ import {
   initialValues,
   availableColumns,
 } from '@/constants/tableSettingsForm';
+
+interface TableSettingsFormProps {
+  onSave: (settings: TableSettings) => void;
+}
 
 const validate = (values: TableSettings) => {
   const result = TableSchema.safeParse(values);
@@ -24,13 +28,13 @@ const validate = (values: TableSettings) => {
   return {};
 };
 
-export default function TableSettingsForm() {
+const TableSettingsForm: React.FC<TableSettingsFormProps> = ({ onSave }) => {
   return (
     <Formik
       initialValues={initialValues}
       validate={validate}
       onSubmit={(values) => {
-        console.log('Saving settings', values);
+        onSave(values);
       }}
     >
       {({ values, handleChange, setFieldValue }) => (
@@ -168,4 +172,6 @@ export default function TableSettingsForm() {
       )}
     </Formik>
   );
-}
+};
+
+export default TableSettingsForm;

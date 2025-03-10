@@ -1,21 +1,52 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-
-import { useAuth } from '@/context';
-
+import React, { useState } from 'react';
 import TableSettingsForm from '@/modules/form/tableSettingsForm';
+import Table from '@/modules/table/table';
+import {
+  TableSettingsProvider,
+  useTableSettings,
+} from '@/context/tableSettingsContext';
+import { Button } from '@/components/button';
+import { TableSettings } from '@/constants/tableSettingsForm';
 
-export default function Page() {
-  const { user } = useAuth();
-  const router = useRouter();
+const AppContent: React.FC = () => {
+  const [showSettings, setShowSettings] = useState(true);
+  const { setSettings } = useTableSettings();
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/auth');
-    }
-  }, [user, router]);
+  const handleSaveSettings = (newSettings: TableSettings) => {
+    setSettings(newSettings);
+    setShowSettings(false);
+  };
 
-  return <TableSettingsForm />;
-}
+  return (
+    <div className="flex flex-col items-center">
+      {showSettings ? (
+        <div className="w-full max-w-lg">
+          <TableSettingsForm onSave={handleSaveSettings} />
+        </div>
+      ) : (
+        <div className="w-full">
+          <Button
+            variant={'secondary'}
+            onClick={() => setShowSettings(true)}
+            className="mb-4"
+          >
+            Show Settings
+          </Button>
+          <Table />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <TableSettingsProvider>
+      <AppContent />
+    </TableSettingsProvider>
+  );
+};
+
+export default App;
