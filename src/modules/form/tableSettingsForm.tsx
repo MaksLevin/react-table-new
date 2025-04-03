@@ -9,12 +9,12 @@ import { Checkbox } from '@/components/checkbox';
 import {
   TableSchema,
   TableSettings,
-  initialValues,
   availableColumns,
 } from '@/constants/tableSettingsForm';
 
 interface TableSettingsFormProps {
   onSave: (settings: TableSettings) => void;
+  initialSettings: TableSettings;
 }
 
 const validate = (values: TableSettings) => {
@@ -31,17 +31,18 @@ const validate = (values: TableSettings) => {
 
 export const TableSettingsForm: React.FC<TableSettingsFormProps> = ({
   onSave,
+  initialSettings,
 }) => {
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={initialSettings}
       validate={validate}
       onSubmit={(values) => {
         onSave(values);
       }}
     >
       {({ values, handleChange, setFieldValue }) => (
-        <Form className="flex flex-col min-h-screen p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-md h-full">
+        <Form className="flex flex-col min-h-screen p-6 bg-white dark:bg-neutral-800 shadow-md h-full w-full">
           <Typography as="h3" size="h3" className="mb-4">
             Table Settings
           </Typography>

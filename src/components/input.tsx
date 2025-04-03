@@ -13,6 +13,7 @@ type InputProps = {
   className?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
 };
 
 const inputVariants = cva(
@@ -39,6 +40,7 @@ export function Input({
   className,
   value,
   onChange,
+  label,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,12 +62,14 @@ export function Input({
 
   return (
     <div className="relative">
-      <label
-        htmlFor={id}
-        className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
-      >
-        {id.charAt(0).toUpperCase() + id.slice(1)}
-      </label>
+      {label && (
+        <label
+          htmlFor={id}
+          className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+        >
+          {label}
+        </label>
+      )}
       <div className="relative mt-1">
         <input
           id={id}

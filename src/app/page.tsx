@@ -17,7 +17,7 @@ import { TableSettings } from '@/constants/tableSettingsForm';
 
 const AppContent: React.FC = () => {
   const [showSettings, setShowSettings] = useState(true);
-  const { setSettings } = useTableSettings();
+  const { settings, setSettings } = useTableSettings();
   const { user } = useAuth();
   const router = useRouter();
 
@@ -35,15 +35,18 @@ const AppContent: React.FC = () => {
   return (
     <div className="flex flex-col items-center">
       {showSettings ? (
-        <div className="w-full max-w-lg">
-          <TableSettingsForm onSave={handleSaveSettings} />
+        <div className="w-full h-full">
+          <TableSettingsForm
+            onSave={handleSaveSettings}
+            initialSettings={settings}
+          />
         </div>
       ) : (
-        <div className="w-full">
+        <div className="flex flex-col w-full min-h-screen dark:bg-neutral-800">
           <Button
             variant={'secondary'}
             onClick={() => setShowSettings(true)}
-            className="mb-4"
+            className="self-start mb-4 mt-[1rem] ml-[1rem]"
           >
             Show Settings
           </Button>
@@ -55,13 +58,7 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  return (
-    <AuthProvider>
-      <TableSettingsProvider>
-        <AppContent />
-      </TableSettingsProvider>
-    </AuthProvider>
-  );
+  return <AppContent />;
 };
 
 export default App;
