@@ -70,6 +70,7 @@ export default function AuthForm() {
             name="email"
             id="email"
             type="email"
+            label="Email"
             onChange={(e) => setEmail(e.target.value)}
             required
             className="dark:inputVariants({ theme: 'dark' })"
@@ -78,6 +79,7 @@ export default function AuthForm() {
             name="password"
             id="password"
             type="password"
+            label="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
             className="dark:inputVariants({ theme: 'dark' })"

@@ -1,16 +1,21 @@
+import React from 'react';
 import { Formik, Form, Field } from 'formik';
-
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Typography } from '@/components/typography';
 import { Select } from '@/components/select';
 import { Checkbox } from '@/components/checkbox';
+
 import {
   TableSchema,
   TableSettings,
-  initialValues,
   availableColumns,
 } from '@/constants/tableSettingsForm';
+
+interface TableSettingsFormProps {
+  onSave: (settings: TableSettings) => void;
+  initialSettings: TableSettings;
+}
 
 const validate = (values: TableSettings) => {
   const result = TableSchema.safeParse(values);
@@ -24,17 +29,20 @@ const validate = (values: TableSettings) => {
   return {};
 };
 
-export default function TableSettingsForm() {
+export const TableSettingsForm: React.FC<TableSettingsFormProps> = ({
+  onSave,
+  initialSettings,
+}) => {
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={initialSettings}
       validate={validate}
       onSubmit={(values) => {
-        console.log('Saving settings', values);
+        onSave(values);
       }}
     >
       {({ values, handleChange, setFieldValue }) => (
-        <Form className="flex flex-col min-h-screen p-6 bg-white dark:bg-neutral-800 rounded-lg shadow-md h-full">
+        <Form className="flex flex-col min-h-screen p-6 bg-white dark:bg-neutral-800 shadow-md h-full w-full">
           <Typography as="h3" size="h3" className="mb-4">
             Table Settings
           </Typography>
@@ -168,4 +176,4 @@ export default function TableSettingsForm() {
       )}
     </Formik>
   );
-}
+};
